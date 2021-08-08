@@ -32,6 +32,16 @@
 			<version>3.0.3</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.5.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-webmvc-core</artifactId>
+			<version>1.5.10</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
 		</dependency>
@@ -74,14 +84,14 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<configuration>
 					<excludes>
-					<exclude>com/b2w/starwars/StarWarsApplication.class</exclude>
-					<exclude>com/b2w/starwars/config/**.class</exclude>
-					<exclude>com/b2w/starwars/domain/**.class</exclude>
-					<exclude>com/b2w/starwars/dto/**.class</exclude>
-					<exclude>com/b2w/starwars/exception/**.class</exclude>
-					<exclude>com/b2w/starwars/integration/impl/**.class</exclude>
-					<exclude>com/b2w/starwars/integration/model/**.class</exclude>
-					<exclude>com/b2w/starwars/controller/**.class</exclude>
+						<exclude>com/b2w/starwars/StarWarsApplication.class</exclude>
+						<exclude>com/b2w/starwars/config/**.class</exclude>
+						<exclude>com/b2w/starwars/domain/**.class</exclude>
+						<exclude>com/b2w/starwars/dto/**.class</exclude>
+						<exclude>com/b2w/starwars/exception/**.class</exclude>
+						<exclude>com/b2w/starwars/integration/impl/**.class</exclude>
+						<exclude>com/b2w/starwars/integration/model/**.class</exclude>
+						<exclude>com/b2w/starwars/controller/**.class</exclude>
 					</excludes>
 				</configuration>
 				<executions>

@@ -1,10 +1,13 @@
 package com.b2w.starwars.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.b2w.starwars.domain.PlanetDomain;
+import com.b2w.starwars.dto.DeletePlanetResponse;
 import com.b2w.starwars.integration.model.PlanetResponse;
 import com.b2w.starwars.services.PlanetService;
 
@@ -58,15 +62,30 @@ public class PlanetController {
 	public ResponseEntity<PlanetDomain> getPlanets(@PathVariable("id") String id) {
 		return ResponseEntity.ok(this.service.getPlanet(id));
 	}
+	
+	@Operation(summary = "Consulta de planetas pelo nome")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "successful", content = @Content(array = @ArraySchema(schema = @Schema(implementation = PlanetDomain.class)))) })
+	@GetMapping("{name}/info")
+	public ResponseEntity<List<PlanetDomain>> getPlanetByName(@PathVariable("name") String name) {
+		return ResponseEntity.ok(this.service.getPlanetByName(name));
+	}
 
-	@Operation(summary = "Listagem de planetas pelo nome")
+	@Operation(summary = "Listagem de planetas")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "successful", content = @Content(array = @ArraySchema(schema = @Schema(implementation = PlanetDomain.class)))) })
 	@GetMapping("list")
 	public ResponseEntity<Page<PlanetDomain>> getPlanets(@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "size", defaultValue = "10") Integer size,
-			@RequestParam(value = "name", required = false) String name) {
-		return ResponseEntity.ok(this.service.getPlanets(name, page, size));
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		return ResponseEntity.ok(this.service.getPlanets(page, size));
+	}
+
+	@Operation(summary = "Remover planeta pelo id")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "successful", content = @Content(array = @ArraySchema(schema = @Schema(implementation = DeletePlanetResponse.class)))) })
+	@DeleteMapping("{id}")
+	public ResponseEntity<DeletePlanetResponse> removePlanet(@PathVariable("{id}") String id) {
+		return ResponseEntity.ok(this.service.removePlanet(id));
 	}
 
 }

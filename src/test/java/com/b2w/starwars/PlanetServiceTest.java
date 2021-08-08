@@ -56,7 +56,7 @@ class PlanetServiceTest {
 
 		assertNotNull(this.service.postPlanet(planetDomain));
 	}
- 
+
 	@Test
 	public void postPlanetExceptionTest() {
 		PlanetDomain planetDomain = new PlanetDomain();
@@ -86,19 +86,19 @@ class PlanetServiceTest {
 		Mockito.when(this.repository.findById(TESTE)).thenReturn(planet);
 		assertThrows(StarWarsException.class, () -> this.service.getPlanet(TESTE));
 	}
-	
+
 	@Test
 	public void getPlanetsTest() {
 		Page<PlanetDomain> page = Page.empty();
-		Mockito.when(this.repository.findByNome(TESTE, PageRequest.of(1, 10))).thenReturn(page);
-		assertEquals(this.service.getPlanets(TESTE, 1, 10).getContent(), page.getContent());
+		Mockito.when(this.repository.findAll(PageRequest.of(1, 10))).thenReturn(page);
+		assertEquals(this.service.getPlanets(1, 10).getContent(), page.getContent());
 	}
 
 	@Test
 	public void removePlanetTest() {
 		Mockito.when(this.repository.existsById(TESTE)).thenReturn(true);
 		assertNotNull(this.service.removePlanet(TESTE));
-		
+
 	}
 
 	@Test

@@ -1,5 +1,7 @@
 package com.b2w.starwars.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,8 +45,12 @@ public class PlanetService {
 		return this.repository.findById(id).orElseThrow(() -> new StarWarsException(PLANETA_NÃO_ENCONTRADO));
 	}
 
-	public Page<PlanetDomain> getPlanets(String name, Integer page, Integer size) {
-		return this.repository.findByNome(name, PageRequest.of(page, size));
+	public Page<PlanetDomain> getPlanets(Integer page, Integer size) {
+		return this.repository.findAll(PageRequest.of(page, size));
+	}
+	
+	public List<PlanetDomain> getPlanetByName(String name) {
+		return this.repository.findAllByNome(name);
 	}
 
 	public DeletePlanetResponse removePlanet(String id) {
